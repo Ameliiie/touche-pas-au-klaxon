@@ -1,0 +1,19 @@
+# Composer
+/vendor/
+
+# Node.js
+/node_modules/
+
+# Fichiers générés
+/public/assets/css/*.css
+/public/assets/css/*.map
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Configuration locale (si besoin plus tard)
+.env
+
+# Local configuration
+config/config.php
