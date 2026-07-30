@@ -14,6 +14,8 @@ class Controller
      */
     protected function render(string $view): void
     {
-        require_once __DIR__ . '/../Views/' . $view . '.php';
-    }
+    $viewPath = __DIR__ . '/../Views/' . $view . '.php';
+
+    require_once __DIR__ . '/../Views/layouts/main.php';
+}
 }

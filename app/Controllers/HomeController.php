@@ -13,7 +13,9 @@ class HomeController extends Controller
      * Affiche la page d'accueil.
      */
     public function index(): void
-    {
-        $this->render('Home/index');
-    }
+{
+    $title = 'Accueil';
+
+    $this->render('Home/index');
+}
 }
