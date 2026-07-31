@@ -3,7 +3,7 @@
 <?php if (!$isLogged): ?>
 
     <p class="mb-4">
-        Pour obtenir plus d'informations sur un trajet, veuillez vous connecter
+        Pour obtenir plus d'informations sur un trajet, veuillez vous connecter.
     </p>
 
 <?php endif; ?>
@@ -11,6 +11,7 @@
 <?php if ($flash): ?>
 
     <div class="alert alert-success alert-dismissible fade show" role="alert">
+
         Votre action a bien été prise en compte.
 
         <button
@@ -42,7 +43,9 @@
                 <th>Places</th>
 
                 <?php if ($isLogged): ?>
+
                     <th class="text-center">Actions</th>
+
                 <?php endif; ?>
 
             </tr>
@@ -56,14 +59,18 @@
                 <tr>
 
                     <td><?= htmlspecialchars($trip['departure_city']) ?></td>
-                    <td><?= htmlspecialchars($trip['departure_date']) ?></td>
-                    <td><?= htmlspecialchars($trip['departure_time']) ?></td>
+
+                    <td><?= date('d/m/Y', strtotime($trip['departure_datetime'])) ?></td>
+
+                    <td><?= date('H:i', strtotime($trip['departure_datetime'])) ?></td>
 
                     <td><?= htmlspecialchars($trip['arrival_city']) ?></td>
-                    <td><?= htmlspecialchars($trip['arrival_date']) ?></td>
-                    <td><?= htmlspecialchars($trip['arrival_time']) ?></td>
 
-                    <td><?= htmlspecialchars($trip['available_places']) ?></td>
+                    <td><?= date('d/m/Y', strtotime($trip['arrival_datetime'])) ?></td>
+
+                    <td><?= date('H:i', strtotime($trip['arrival_datetime'])) ?></td>
+
+                    <td><?= htmlspecialchars((string) $trip['available_seats']) ?></td>
 
                     <?php if ($isLogged): ?>
 
@@ -106,48 +113,48 @@
 
 <?php if ($isLogged): ?>
 
-    <div class="modal fade" id="tripModal" tabindex="-1">
+<div class="modal fade" id="tripModal" tabindex="-1">
 
-        <div class="modal-dialog">
+    <div class="modal-dialog">
 
-            <div class="modal-content">
+        <div class="modal-content">
 
-                <div class="modal-header">
+            <div class="modal-header">
 
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal">
-                    </button>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
 
-                </div>
+            </div>
 
-                <div class="modal-body">
+            <div class="modal-body">
 
-                    <p><strong>Auteur :</strong> Xxxxxxx Xxxxxxx</p>
-                    <p><strong>Téléphone :</strong> XX XX XX XX XX</p>
-                    <p><strong>Email :</strong> xxxxxxxxx@xxxxxxx.xx</p>
-                    <p><strong>Nombre total de places :</strong> 4</p>
+                <p><strong>Auteur :</strong> À compléter</p>
+                <p><strong>Téléphone :</strong> À compléter</p>
+                <p><strong>Email :</strong> À compléter</p>
+                <p><strong>Nombre total de places :</strong> À compléter</p>
 
-                </div>
+            </div>
 
-                <div class="modal-footer">
+            <div class="modal-footer">
 
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
 
-                        Fermer
+                    Fermer
 
-                    </button>
-
-                </div>
+                </button>
 
             </div>
 
         </div>
 
     </div>
+
+</div>
 
 <?php endif; ?>
