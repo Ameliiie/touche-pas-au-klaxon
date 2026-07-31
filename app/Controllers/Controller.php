@@ -12,8 +12,10 @@ class Controller
     /**
      * Charge une vue.
      */
-    protected function render(string $view): void
-    {
+protected function render(string $view, array $data = []): void
+{
+    extract($data);
+
     $viewPath = __DIR__ . '/../Views/' . $view . '.php';
 
     require_once __DIR__ . '/../Views/layouts/main.php';
