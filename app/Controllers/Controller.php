@@ -4,20 +4,38 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-/**
- * Classe de base de tous les contrôleurs.
- */
-class Controller
+abstract class Controller
 {
-    /**
-     * Charge une vue.
-     */
-protected function render(string $view, array $data = []): void
+    protected function render(string $view, array $data = []): void
+    {
+        $user = $_SESSION['user'] ?? null;
+
+        $data['isLogged'] = $user !== null;
+        $data['isAdmin'] = $user !== null && $user['role'] === 'admin';
+        $data['currentUser'] = $user;
+
+        extract($data);
+
+        $viewPath = __DIR__ . '/../Views/' . $view . '.php';
+
+        require_once __DIR__ . '/../Views/layouts/main.php';
+    }
+    
+    protected function requireLogin(): void
 {
-    extract($data);
+    if (!isset($_SESSION['user'])) {
+        header('Location: ' . BASE_URL . 'login');
+        exit;
+    }
+}
 
-    $viewPath = __DIR__ . '/../Views/' . $view . '.php';
+protected function requireAdmin(): void
+{
+    $this->requireLogin();
 
-    require_once __DIR__ . '/../Views/layouts/main.php';
+    if ($_SESSION['user']['role'] !== 'admin') {
+        header('Location: ' . BASE_URL);
+        exit;
+    }
 }
 }

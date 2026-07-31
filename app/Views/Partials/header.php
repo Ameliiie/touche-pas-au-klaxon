@@ -1,4 +1,5 @@
 <header class="navbar navbar-expand-lg navbar-dark bg-dark">
+
     <div class="container">
 
         <a class="navbar-brand" href="<?= BASE_URL ?>">
@@ -22,10 +23,11 @@
                 </a>
 
                 <span class="text-white">
-                    Bonjour Xxxxxxx Xxxxxxx
+                    Bonjour <?= htmlspecialchars($currentUser['firstname']) ?>
+                    <?= htmlspecialchars($currentUser['lastname']) ?>
                 </span>
 
-                <a href="#" class="btn btn-outline-light">
+                <a href="<?= BASE_URL ?>logout" class="btn btn-outline-light">
                     Déconnexion
                 </a>
 
@@ -35,15 +37,16 @@
 
             <div class="ms-auto d-flex align-items-center gap-3">
 
-                <a href="#" class="btn btn-dark">
+                <a href="#" class="btn btn-secondary">
                     Créer un trajet
                 </a>
 
                 <span class="text-white">
-                    Bonjour Xxxxxxx Xxxxxxx
+                    Bonjour <?= htmlspecialchars($currentUser['firstname']) ?>
+                    <?= htmlspecialchars($currentUser['lastname']) ?>
                 </span>
 
-                <a href="#" class="btn btn-outline-light">
+                <a href="<?= BASE_URL ?>logout" class="btn btn-outline-light">
                     Déconnexion
                 </a>
 
@@ -53,7 +56,7 @@
 
             <div class="ms-auto">
 
-                <a href="#" class="btn btn-outline-light">
+                <a href="<?= BASE_URL ?>login" class="btn btn-outline-light">
                     Connexion
                 </a>
 
@@ -62,4 +65,5 @@
         <?php endif; ?>
 
     </div>
+
 </header>
