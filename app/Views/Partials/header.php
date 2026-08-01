@@ -18,7 +18,7 @@
                     Agences
                 </a>
 
-                <a href="#" class="btn btn-secondary">
+                <a href="<?= BASE_URL ?>trips" class="btn btn-secondary">
                     Trajets
                 </a>
 
