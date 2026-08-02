@@ -1,9 +1,5 @@
 <h1 class="mb-4">Gestion des trajets</h1>
 
-<a href="<?= BASE_URL ?>trips/create" class="btn btn-primary mb-3">
-    Ajouter un trajet
-</a>
-
 <table class="table table-striped table-bordered align-middle">
 
     <thead class="table-dark">
@@ -14,6 +10,7 @@
             <th>Date de départ</th>
             <th>Date d'arrivée</th>
             <th>Places</th>
+            <th>Auteur</th>
             <th>Actions</th>
         </tr>
 
@@ -21,41 +18,53 @@
 
     <tbody>
 
-    <?php foreach ($trips as $trip): ?>
+        <?php foreach ($trips as $trip): ?>
 
-        <tr>
+            <tr>
 
-            <td><?= htmlspecialchars($trip['departure_city']) ?></td>
+                <td><?= htmlspecialchars($trip['departure_city']) ?></td>
 
-            <td><?= htmlspecialchars($trip['arrival_city']) ?></td>
+                <td><?= htmlspecialchars($trip['arrival_city']) ?></td>
 
-            <td><?= date('d/m/Y H:i', strtotime($trip['departure_datetime'])) ?></td>
+                <td><?= date('d/m/Y H:i', strtotime($trip['departure_datetime'])) ?></td>
 
-            <td><?= date('d/m/Y H:i', strtotime($trip['arrival_datetime'])) ?></td>
+                <td><?= date('d/m/Y H:i', strtotime($trip['arrival_datetime'])) ?></td>
 
-            <td>
-                <?= $trip['available_seats'] ?>
-                /
-                <?= $trip['total_seats'] ?>
-            </td>
+                <td>
+                    <?= $trip['available_seats'] ?>
+                    /
+                    <?= $trip['total_seats'] ?>
+                </td>
 
-            <td>
+                <td>
+                    <?= htmlspecialchars($trip['firstname']) ?>
+                    <?= htmlspecialchars($trip['lastname']) ?>
+                </td>
 
-                <a href="<?= BASE_URL ?>trips/edit?id=<?= $trip['id'] ?>" class="btn btn-warning btn-sm">
-                    Modifier
-                </a>
+                <td>
 
-                <a href="<?= BASE_URL ?>trips/delete?id=<?= $trip['id'] ?>"
-                class="btn btn-danger btn-sm"
-                onclick="return confirm('Supprimer ce trajet ?')">
-                Supprimer
-                </a>
+                    <a
+                        href="<?= BASE_URL ?>trips/edit?id=<?= $trip['id'] ?>"
+                        class="btn btn-warning btn-sm">
 
-            </td>
+                        Modifier
 
-        </tr>
+                    </a>
 
-    <?php endforeach; ?>
+                    <a
+                        href="<?= BASE_URL ?>trips/delete?id=<?= $trip['id'] ?>"
+                        class="btn btn-danger btn-sm"
+                        onclick="return confirm('Supprimer ce trajet ?')">
+
+                        Supprimer
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+        <?php endforeach; ?>
 
     </tbody>
 

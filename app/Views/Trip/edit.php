@@ -2,110 +2,141 @@
 
 <form action="<?= BASE_URL ?>trips/update" method="post">
 
-<input type="hidden" name="id" value="<?= $trip['id'] ?>">
+    <input
+        type="hidden"
+        name="id"
+        value="<?= $trip['id'] ?>">
 
-<div class="mb-3">
+    <div class="mb-3">
 
-<label class="form-label">Agence de départ</label>
+        <label class="form-label">
+            Agence de départ
+        </label>
 
-<select name="departure_agency_id" class="form-select">
+        <select
+            name="departure_agency_id"
+            class="form-select"
+            required>
 
-<?php foreach($agencies as $agency): ?>
+            <?php foreach ($agencies as $agency): ?>
 
-<option
-value="<?= $agency['id'] ?>"
-<?= $agency['id']==$trip['departure_agency_id']?'selected':'' ?>>
+                <option
+                    value="<?= $agency['id'] ?>"
+                    <?= $agency['id'] == $trip['departure_agency_id'] ? 'selected' : '' ?>>
 
-<?= htmlspecialchars($agency['city']) ?>
+                    <?= htmlspecialchars($agency['city']) ?>
 
-</option>
+                </option>
 
-<?php endforeach; ?>
+            <?php endforeach; ?>
 
-</select>
+        </select>
 
-</div>
+    </div>
 
-<div class="mb-3">
+    <div class="mb-3">
 
-<label class="form-label">Agence d'arrivée</label>
+        <label class="form-label">
+            Agence d'arrivée
+        </label>
 
-<select name="arrival_agency_id" class="form-select">
+        <select
+            name="arrival_agency_id"
+            class="form-select"
+            required>
 
-<?php foreach($agencies as $agency): ?>
+            <?php foreach ($agencies as $agency): ?>
 
-<option
-value="<?= $agency['id'] ?>"
-<?= $agency['id']==$trip['arrival_agency_id']?'selected':'' ?>>
+                <option
+                    value="<?= $agency['id'] ?>"
+                    <?= $agency['id'] == $trip['arrival_agency_id'] ? 'selected' : '' ?>>
 
-<?= htmlspecialchars($agency['city']) ?>
+                    <?= htmlspecialchars($agency['city']) ?>
 
-</option>
+                </option>
 
-<?php endforeach; ?>
+            <?php endforeach; ?>
 
-</select>
+        </select>
 
-</div>
+    </div>
 
-<div class="mb-3">
+    <div class="mb-3">
 
-<label class="form-label">Départ</label>
+        <label class="form-label">
+            Date et heure de départ
+        </label>
 
-<input
-type="datetime-local"
-name="departure_datetime"
-class="form-control"
-value="<?= date('Y-m-d\TH:i',strtotime($trip['departure_datetime'])) ?>">
+        <input
+            type="datetime-local"
+            name="departure_datetime"
+            class="form-control"
+            value="<?= date('Y-m-d\TH:i', strtotime($trip['departure_datetime'])) ?>"
+            required>
 
-</div>
+    </div>
 
-<div class="mb-3">
+    <div class="mb-3">
 
-<label class="form-label">Arrivée</label>
+        <label class="form-label">
+            Date et heure d'arrivée
+        </label>
 
-<input
-type="datetime-local"
-name="arrival_datetime"
-class="form-control"
-value="<?= date('Y-m-d\TH:i',strtotime($trip['arrival_datetime'])) ?>">
+        <input
+            type="datetime-local"
+            name="arrival_datetime"
+            class="form-control"
+            value="<?= date('Y-m-d\TH:i', strtotime($trip['arrival_datetime'])) ?>"
+            required>
 
-</div>
+    </div>
 
-<div class="mb-3">
+    <div class="mb-3">
 
-<label class="form-label">Places totales</label>
+        <label class="form-label">
+            Nombre total de places
+        </label>
 
-<input
-type="number"
-name="total_seats"
-class="form-control"
-value="<?= $trip['total_seats'] ?>">
+        <input
+            type="number"
+            name="total_seats"
+            class="form-control"
+            value="<?= $trip['total_seats'] ?>"
+            min="1"
+            required>
 
-</div>
+    </div>
 
-<div class="mb-3">
+    <div class="mb-3">
 
-<label class="form-label">Places disponibles</label>
+        <label class="form-label">
+            Nombre de places disponibles
+        </label>
 
-<input
-type="number"
-name="available_seats"
-class="form-control"
-value="<?= $trip['available_seats'] ?>">
+        <input
+            type="number"
+            name="available_seats"
+            class="form-control"
+            value="<?= $trip['available_seats'] ?>"
+            min="0"
+            required>
 
-</div>
+    </div>
 
-<button class="btn btn-success">
+    <button
+        type="submit"
+        class="btn btn-success">
 
-Enregistrer
+        Enregistrer
 
-</button>
+    </button>
 
-<a href="<?= BASE_URL ?>trips" class="btn btn-secondary">
+    <a
+        href="<?= BASE_URL ?>"
+        class="btn btn-secondary">
 
-Annuler
+        Annuler
 
-</a>
+    </a>
 
 </form>

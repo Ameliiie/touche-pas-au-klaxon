@@ -1,8 +1,4 @@
-<h1 class="mb-4">Gestion des utilisateurs</h1>
-
-<a href="<?= BASE_URL ?>users/create" class="btn btn-primary mb-3">
-    Ajouter un utilisateur
-</a>
+<h1 class="mb-4">Liste des utilisateurs</h1>
 
 <table class="table table-striped table-bordered align-middle">
 
@@ -15,7 +11,6 @@
             <th>Email</th>
             <th>Téléphone</th>
             <th>Rôle</th>
-            <th>Actions</th>
 
         </tr>
 
@@ -23,38 +18,23 @@
 
     <tbody>
 
-    <?php foreach ($users as $user): ?>
+        <?php foreach ($users as $user): ?>
 
-        <tr>
+            <tr>
 
-            <td><?= htmlspecialchars($user['lastname']) ?></td>
+                <td><?= htmlspecialchars($user['lastname']) ?></td>
 
-            <td><?= htmlspecialchars($user['firstname']) ?></td>
+                <td><?= htmlspecialchars($user['firstname']) ?></td>
 
-            <td><?= htmlspecialchars($user['email']) ?></td>
+                <td><?= htmlspecialchars($user['email']) ?></td>
 
-            <td><?= htmlspecialchars($user['phone']) ?></td>
+                <td><?= htmlspecialchars($user['phone']) ?></td>
 
-            <td><?= htmlspecialchars($user['role']) ?></td>
+                <td><?= htmlspecialchars($user['role']) ?></td>
 
-            <td>
+            </tr>
 
-                <a href="<?= BASE_URL ?>users/edit?id=<?= $user['id'] ?>" class="btn btn-warning btn-sm">
-                     Modifier
-                </a>
-
-                <a  href="<?= BASE_URL ?>users/delete?id=<?= $user['id'] ?>"
-                class="btn btn-danger btn-sm"
-                onclick="return confirm('Supprimer cet utilisateur ?')">
-
-                Supprimer
-                </a>
-
-            </td>
-
-        </tr>
-
-    <?php endforeach; ?>
+        <?php endforeach; ?>
 
     </tbody>
 

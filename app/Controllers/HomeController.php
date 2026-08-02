@@ -15,13 +15,16 @@ class HomeController extends Controller
      * Affiche la page d'accueil.
      */
     public function index(): void
-{
-    $trips = Trip::getAll();
+    {
+        $trips = Trip::getAll();
 
-    $this->render('Home/index', [
-        'title' => 'Accueil',
-        'trips' => $trips,
-        'flash' => false,
-    ]);
-}
+        $flash = $_SESSION['flash'] ?? false;
+        unset($_SESSION['flash']);
+
+        $this->render('Home/index', [
+            'title' => 'Accueil',
+            'trips' => $trips,
+            'flash' => $flash,
+        ]);
+    }
 }

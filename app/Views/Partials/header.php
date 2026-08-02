@@ -11,13 +11,13 @@
             <div class="ms-auto d-flex align-items-center gap-3">
 
                 <a href="<?= BASE_URL ?>users" class="btn btn-secondary">
-                 Utilisateurs
+                    Utilisateurs
                 </a>
 
                 <a href="<?= BASE_URL ?>agencies" class="btn btn-secondary">
-                Agences
+                    Agences
                 </a>
-                
+
                 <a href="<?= BASE_URL ?>trips" class="btn btn-secondary">
                     Trajets
                 </a>
@@ -37,7 +37,7 @@
 
             <div class="ms-auto d-flex align-items-center gap-3">
 
-                <a href="#" class="btn btn-secondary">
+                <a href="<?= BASE_URL ?>trips/create" class="btn btn-secondary">
                     Créer un trajet
                 </a>
 
