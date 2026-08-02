@@ -35,6 +35,7 @@ class Agency
         ";
 
         $statement = $pdo->prepare($sql);
+
         $statement->execute([
             'id' => $id
         ]);
@@ -42,5 +43,57 @@ class Agency
         $agency = $statement->fetch(PDO::FETCH_ASSOC);
 
         return $agency ?: null;
+    }
+
+    public static function create(array $data): void
+    {
+        $pdo = Database::getInstance();
+
+        $sql = "
+            INSERT INTO agencies (
+                city
+            )
+            VALUES (
+                :city
+            )
+        ";
+
+        $statement = $pdo->prepare($sql);
+
+        $statement->execute($data);
+    }
+
+    public static function update(int $id, array $data): void
+    {
+        $pdo = Database::getInstance();
+
+        $sql = "
+            UPDATE agencies
+            SET
+                city = :city
+            WHERE id = :id
+        ";
+
+        $data['id'] = $id;
+
+        $statement = $pdo->prepare($sql);
+
+        $statement->execute($data);
+    }
+
+    public static function delete(int $id): void
+    {
+        $pdo = Database::getInstance();
+
+        $sql = "
+            DELETE FROM agencies
+            WHERE id = :id
+        ";
+
+        $statement = $pdo->prepare($sql);
+
+        $statement->execute([
+            'id' => $id
+        ]);
     }
 }
