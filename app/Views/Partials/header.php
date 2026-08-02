@@ -10,8 +10,8 @@
 
             <div class="ms-auto d-flex align-items-center gap-3">
 
-                <a href="#" class="btn btn-secondary">
-                    Utilisateurs
+                <a href="<?= BASE_URL ?>users" class="btn btn-secondary">
+                 Utilisateurs
                 </a>
 
                 <a href="#" class="btn btn-secondary">

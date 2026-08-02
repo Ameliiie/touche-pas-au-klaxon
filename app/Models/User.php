@@ -65,4 +65,70 @@ class User
 
         return $user ?: null;
     }
+
+    public static function create(array $data): void
+    {
+        $pdo = Database::getInstance();
+
+        $sql = "
+            INSERT INTO users (
+                firstname,
+                lastname,
+                email,
+                phone,
+                password,
+                role
+            )
+            VALUES (
+                :firstname,
+                :lastname,
+                :email,
+                :phone,
+                :password,
+                :role
+            )
+        ";
+
+        $statement = $pdo->prepare($sql);
+
+        $statement->execute($data);
+    }
+
+    public static function update(int $id, array $data): void
+    {
+        $pdo = Database::getInstance();
+
+        $sql = "
+            UPDATE users
+            SET
+                firstname = :firstname,
+                lastname = :lastname,
+                email = :email,
+                phone = :phone,
+                role = :role
+            WHERE id = :id
+        ";
+
+        $data['id'] = $id;
+
+        $statement = $pdo->prepare($sql);
+
+        $statement->execute($data);
+    }
+    
+    public static function delete(int $id): void
+{
+    $pdo = Database::getInstance();
+
+    $sql = "
+        DELETE FROM users
+        WHERE id = :id
+    ";
+
+    $statement = $pdo->prepare($sql);
+
+    $statement->execute([
+        'id' => $id
+    ]);
+}
 }

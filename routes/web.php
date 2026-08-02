@@ -5,12 +5,14 @@ declare(strict_types=1);
 use App\Controllers\Auth\LoginController;
 use App\Controllers\HomeController;
 use App\Controllers\TripController;
+use App\Controllers\UserController;
 
 return [
 
     '/' => [HomeController::class, 'index'],
     '/login' => [LoginController::class, 'index'],
     '/logout' => [LoginController::class, 'logout'],
+
     '/trips' => [TripController::class, 'index'],
     '/trips' => [TripController::class, 'index'],
     '/trips/create' => [TripController::class, 'create'],
@@ -18,5 +20,13 @@ return [
     '/trips/edit' => [TripController::class, 'edit'],
     '/trips/update' => [TripController::class, 'update'],
     '/trips/delete' => [TripController::class, 'delete'],
+
+    '/users' => [UserController::class, 'index'],
+    '/users/create' => [UserController::class, 'create'],
+    '/users/store' => [UserController::class, 'store'],
+    '/users/edit' => [UserController::class, 'edit'],
+    '/users/update' => [UserController::class, 'update'],
+
+    '/users/delete' => [UserController::class, 'delete'],
 
 ];
