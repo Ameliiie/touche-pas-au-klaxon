@@ -14,10 +14,10 @@
                  Utilisateurs
                 </a>
 
-                <a href="#" class="btn btn-secondary">
-                    Agences
+                <a href="<?= BASE_URL ?>agencies" class="btn btn-secondary">
+                Agences
                 </a>
-
+                
                 <a href="<?= BASE_URL ?>trips" class="btn btn-secondary">
                     Trajets
                 </a>

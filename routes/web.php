@@ -6,6 +6,7 @@ use App\Controllers\Auth\LoginController;
 use App\Controllers\HomeController;
 use App\Controllers\TripController;
 use App\Controllers\UserController;
+use App\Controllers\AgencyController;
 
 return [
 
@@ -28,5 +29,12 @@ return [
     '/users/update' => [UserController::class, 'update'],
 
     '/users/delete' => [UserController::class, 'delete'],
+
+    '/agencies' => [AgencyController::class, 'index'],
+    '/agencies/create' => [AgencyController::class, 'create'],
+    '/agencies/store' => [AgencyController::class, 'store'],
+    '/agencies/edit' => [AgencyController::class, 'edit'],
+    '/agencies/update' => [AgencyController::class, 'update'],
+    '/agencies/delete' => [AgencyController::class, 'delete'],
 
 ];
