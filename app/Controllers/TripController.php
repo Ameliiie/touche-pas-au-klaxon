@@ -24,12 +24,12 @@ class TripController extends Controller
 
     public function create(): void
     {
-        $this->requireAdmin();
+        $this->requireLogin();
 
         $agencies = Agency::getAll();
 
         $this->render('Trip/create', [
-            'title' => 'Ajouter un trajet',
+            'title' => 'Proposer un trajet',
             'agencies' => $agencies,
             'flash' => false,
         ]);
@@ -37,7 +37,19 @@ class TripController extends Controller
 
     public function store(): void
     {
-        $this->requireAdmin();
+        $this->requireLogin();
+
+        if (
+            (int) $_POST['departure_agency_id'] === (int) $_POST['arrival_agency_id']
+        ) {
+            header('Location: ' . BASE_URL . 'trips/create');
+            exit;
+        }
+
+        if ($_POST['arrival_datetime'] <= $_POST['departure_datetime']) {
+            header('Location: ' . BASE_URL . 'trips/create');
+            exit;
+        }
 
         Trip::create([
             'departure_agency_id' => (int) $_POST['departure_agency_id'],
@@ -49,15 +61,25 @@ class TripController extends Controller
             'user_id' => $_SESSION['user']['id'],
         ]);
 
-        header('Location: ' . BASE_URL . 'trips');
+        $_SESSION['flash'] = 'Trajet créé avec succès.';
+
+        header('Location: ' . BASE_URL);
         exit;
     }
 
     public function edit(): void
     {
-        $this->requireAdmin();
+        $this->requireLogin();
 
         $trip = Trip::findById((int) $_GET['id']);
+
+        if (
+            $_SESSION['user']['role'] !== 'admin'
+            && $trip['user_id'] !== $_SESSION['user']['id']
+        ) {
+            header('Location: ' . BASE_URL);
+            exit;
+        }
 
         $agencies = Agency::getAll();
 
@@ -71,7 +93,17 @@ class TripController extends Controller
 
     public function update(): void
     {
-        $this->requireAdmin();
+        $this->requireLogin();
+
+        $trip = Trip::findById((int) $_POST['id']);
+
+        if (
+            $_SESSION['user']['role'] !== 'admin'
+            && $trip['user_id'] !== $_SESSION['user']['id']
+        ) {
+            header('Location: ' . BASE_URL);
+            exit;
+        }
 
         Trip::update(
             (int) $_POST['id'],
@@ -85,16 +117,31 @@ class TripController extends Controller
             ]
         );
 
-        header('Location: ' . BASE_URL . 'trips');
+        $_SESSION['flash'] = 'Trajet modifié avec succès.';
+
+        header('Location: ' . BASE_URL);
         exit;
     }
+
     public function delete(): void
-{
-    $this->requireAdmin();
+    {
+        $this->requireLogin();
 
-    Trip::delete((int) $_GET['id']);
+        $trip = Trip::findById((int) $_GET['id']);
 
-    header('Location: ' . BASE_URL . 'trips');
-    exit;
-}
+        if (
+            $_SESSION['user']['role'] !== 'admin'
+            && $trip['user_id'] !== $_SESSION['user']['id']
+        ) {
+            header('Location: ' . BASE_URL);
+            exit;
+        }
+
+        Trip::delete((int) $_GET['id']);
+
+        $_SESSION['flash'] = 'Trajet supprimé avec succès.';
+
+        header('Location: ' . BASE_URL);
+        exit;
+    }
 }

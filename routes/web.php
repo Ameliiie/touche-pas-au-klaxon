@@ -11,10 +11,11 @@ use App\Controllers\AgencyController;
 return [
 
     '/' => [HomeController::class, 'index'],
+
     '/login' => [LoginController::class, 'index'],
     '/logout' => [LoginController::class, 'logout'],
 
-    '/trips' => [TripController::class, 'index'],
+    // Trajets
     '/trips' => [TripController::class, 'index'],
     '/trips/create' => [TripController::class, 'create'],
     '/trips/store' => [TripController::class, 'store'],
@@ -22,14 +23,15 @@ return [
     '/trips/update' => [TripController::class, 'update'],
     '/trips/delete' => [TripController::class, 'delete'],
 
+    // Utilisateurs
     '/users' => [UserController::class, 'index'],
     '/users/create' => [UserController::class, 'create'],
     '/users/store' => [UserController::class, 'store'],
     '/users/edit' => [UserController::class, 'edit'],
     '/users/update' => [UserController::class, 'update'],
-
     '/users/delete' => [UserController::class, 'delete'],
 
+    // Agences
     '/agencies' => [AgencyController::class, 'index'],
     '/agencies/create' => [AgencyController::class, 'create'],
     '/agencies/store' => [AgencyController::class, 'store'],

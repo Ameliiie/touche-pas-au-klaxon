@@ -16,6 +16,7 @@ class Trip
         $sql = "
             SELECT
                 trips.id,
+                trips.user_id,
 
                 departure.city AS departure_city,
                 arrival.city AS arrival_city,
@@ -41,6 +42,10 @@ class Trip
 
             INNER JOIN users
                 ON users.id = trips.user_id
+
+            WHERE
+                departure_datetime >= NOW()
+                AND available_seats > 0
 
             ORDER BY departure_datetime ASC
         ";

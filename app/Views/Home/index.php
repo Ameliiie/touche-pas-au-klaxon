@@ -12,7 +12,7 @@
 
     <div class="alert alert-success alert-dismissible fade show" role="alert">
 
-        Votre action a bien été prise en compte.
+        <?= htmlspecialchars($flash) ?>
 
         <button
             type="button"
@@ -85,6 +85,27 @@
 
                             </button>
 
+                            <?php if ($currentUser['id'] === $trip['user_id']): ?>
+
+                                <a
+                                    href="<?= BASE_URL ?>trips/edit?id=<?= $trip['id'] ?>"
+                                    class="btn btn-link text-dark p-0 ms-2">
+
+                                    <i class="bi bi-pencil-square"></i>
+
+                                </a>
+
+                                <a
+                                    href="<?= BASE_URL ?>trips/delete?id=<?= $trip['id'] ?>"
+                                    class="btn btn-link text-dark p-0 ms-2"
+                                    onclick="return confirm('Supprimer ce trajet ?')">
+
+                                    <i class="bi bi-trash"></i>
+
+                                </a>
+
+                            <?php endif; ?>
+
                         </td>
 
                     <?php endif; ?>
@@ -125,26 +146,13 @@
 
                     <div class="modal-body">
 
-                        <p>
-                            <strong>Auteur :</strong>
-                            <?= htmlspecialchars($trip['firstname']) ?>
-                            <?= htmlspecialchars($trip['lastname']) ?>
-                        </p>
+                        <p><strong>Auteur :</strong> <?= htmlspecialchars($trip['firstname']) ?> <?= htmlspecialchars($trip['lastname']) ?></p>
 
-                        <p>
-                            <strong>Téléphone :</strong>
-                            <?= htmlspecialchars($trip['phone']) ?>
-                        </p>
+                        <p><strong>Téléphone :</strong> <?= htmlspecialchars($trip['phone']) ?></p>
 
-                        <p>
-                            <strong>Email :</strong>
-                            <?= htmlspecialchars($trip['email']) ?>
-                        </p>
+                        <p><strong>Email :</strong> <?= htmlspecialchars($trip['email']) ?></p>
 
-                        <p>
-                            <strong>Nombre total de places :</strong>
-                            <?= $trip['total_seats'] ?>
-                        </p>
+                        <p><strong>Nombre total de places :</strong> <?= $trip['total_seats'] ?></p>
 
                     </div>
 
