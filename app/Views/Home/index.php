@@ -79,21 +79,9 @@
                             <button
                                 class="btn btn-link text-dark p-0"
                                 data-bs-toggle="modal"
-                                data-bs-target="#tripModal">
+                                data-bs-target="#tripModal<?= $trip['id'] ?>">
 
                                 <i class="bi bi-eye"></i>
-
-                            </button>
-
-                            <button class="btn btn-link text-dark p-0 ms-2">
-
-                                <i class="bi bi-pencil-square"></i>
-
-                            </button>
-
-                            <button class="btn btn-link text-dark p-0 ms-2">
-
-                                <i class="bi bi-trash"></i>
 
                             </button>
 
@@ -113,48 +101,72 @@
 
 <?php if ($isLogged): ?>
 
-<div class="modal fade" id="tripModal" tabindex="-1">
+    <?php foreach ($trips as $trip): ?>
 
-    <div class="modal-dialog">
+        <div class="modal fade" id="tripModal<?= $trip['id'] ?>" tabindex="-1">
 
-        <div class="modal-content">
+            <div class="modal-dialog">
 
-            <div class="modal-header">
+                <div class="modal-content">
 
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal">
-                </button>
+                    <div class="modal-header">
 
-            </div>
+                        <h5 class="modal-title">
+                            Détails du trajet
+                        </h5>
 
-            <div class="modal-body">
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                        </button>
 
-                <p><strong>Auteur :</strong> À compléter</p>
-                <p><strong>Téléphone :</strong> À compléter</p>
-                <p><strong>Email :</strong> À compléter</p>
-                <p><strong>Nombre total de places :</strong> À compléter</p>
+                    </div>
 
-            </div>
+                    <div class="modal-body">
 
-            <div class="modal-footer">
+                        <p>
+                            <strong>Auteur :</strong>
+                            <?= htmlspecialchars($trip['firstname']) ?>
+                            <?= htmlspecialchars($trip['lastname']) ?>
+                        </p>
 
-                <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal">
+                        <p>
+                            <strong>Téléphone :</strong>
+                            <?= htmlspecialchars($trip['phone']) ?>
+                        </p>
 
-                    Fermer
+                        <p>
+                            <strong>Email :</strong>
+                            <?= htmlspecialchars($trip['email']) ?>
+                        </p>
 
-                </button>
+                        <p>
+                            <strong>Nombre total de places :</strong>
+                            <?= $trip['total_seats'] ?>
+                        </p>
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+
+                            Fermer
+
+                        </button>
+
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
-
-</div>
+    <?php endforeach; ?>
 
 <?php endif; ?>
