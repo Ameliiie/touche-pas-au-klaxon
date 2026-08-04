@@ -6,7 +6,7 @@ namespace App\Controllers;
 
 use App\Models\Agency;
 
-class AgencyController extends Controller
+class AgencyController extends AbstractController
 {
     public function index(): void
     {

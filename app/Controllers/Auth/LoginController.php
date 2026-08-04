@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controllers\Auth;
 
-use App\Controllers\Controller;
-use App\Models\User;
+use App\Controllers\AbstractController;
+use App\Services\AuthService;
 
-class LoginController extends Controller
+class LoginController extends AbstractController
 {
     public function index(): void
     {
@@ -25,28 +25,26 @@ class LoginController extends Controller
     }
 
     public function login(): void
-    {
-        $email = trim($_POST['email']);
-        $password = trim($_POST['password']);
+{
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
 
-        $user = User::findByEmail($email);
+    $authService = new AuthService();
 
-        if (
-            $user &&
-            password_verify($password, $user['password'])
-        ) {
+    $result = $authService->login($email, $password);
 
-            $_SESSION['user'] = $user;
+    if ($result['success']) {
+        $_SESSION['user'] = $result['user'];
 
-            header('Location: ' . BASE_URL);
-            exit;
-        }
-
-        $this->render('Auth/login', [
-            'title' => 'Connexion',
-            'flash' => false,
-        ]);
+        header('Location: ' . BASE_URL);
+        exit;
     }
+
+    $_SESSION['flash'] = $result['message'];
+
+    header('Location: ' . BASE_URL . 'login');
+    exit;
+}
 
     public function logout(): void
     {

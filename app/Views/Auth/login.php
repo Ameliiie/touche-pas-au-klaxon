@@ -1,3 +1,15 @@
+<?php if (isset($_SESSION['flash'])) : ?>
+
+    <div class="alert alert-danger">
+
+        <?= htmlspecialchars($_SESSION['flash']) ?>
+
+    </div>
+
+    <?php unset($_SESSION['flash']); ?>
+
+<?php endif; ?>
+
 <h1 class="mb-4">Connexion</h1>
 
 <form method="post">

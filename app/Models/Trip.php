@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Core\Database;
+
 use PDO;
 
-class Trip
+class Trip extends AbstractModel
 {
     public static function getAll(): array
     {
-        $pdo = Database::getInstance();
+        $pdo = self::db();
 
         $sql = "
             SELECT
@@ -57,7 +57,7 @@ class Trip
 
     public static function create(array $data): void
     {
-        $pdo = Database::getInstance();
+        $pdo = self::db();
 
         $sql = "
             INSERT INTO trips (
@@ -87,7 +87,7 @@ class Trip
 
     public static function findById(int $id): ?array
     {
-        $pdo = Database::getInstance();
+        $pdo = self::db();
 
         $sql = "
             SELECT *
@@ -108,7 +108,7 @@ class Trip
 
     public static function update(int $id, array $data): void
     {
-        $pdo = Database::getInstance();
+        $pdo = self::db();
 
         $sql = "
             UPDATE trips
@@ -131,7 +131,7 @@ class Trip
 
     public static function delete(int $id): void
     {
-        $pdo = Database::getInstance();
+        $pdo = self::db();
 
         $sql = "
             DELETE FROM trips

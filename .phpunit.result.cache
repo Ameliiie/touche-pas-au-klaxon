@@ -1,1 +1,1 @@
-{"version":2,"defects":[],"times":{"Tests\\TripTest::testGetAllReturnsArray":0.009}}
+{"version":2,"defects":[],"times":{"Tests\\TripTest::testGetAllReturnsArray":0.009,"Tests\\TripTest::testCreateFailsWhenAgenciesAreIdentical":0.003,"Tests\\TripTest::testCreateFailsWhenArrivalDateIsBeforeDepartureDate":0,"Tests\\TripTest::testCreateReturnsCorrectErrorMessageWhenAgenciesAreIdentical":0}}

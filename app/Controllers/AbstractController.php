@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-abstract class Controller
+abstract class AbstractController
 {
     protected function render(string $view, array $data = []): void
     {

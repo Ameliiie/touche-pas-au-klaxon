@@ -9,7 +9,7 @@ use App\Models\Trip;
 /**
  * Contrôleur de la page d'accueil.
  */
-class HomeController extends Controller
+class HomeController extends AbstractController
 {
     /**
      * Affiche la page d'accueil.
