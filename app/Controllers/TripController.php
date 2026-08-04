@@ -6,9 +6,16 @@ namespace App\Controllers;
 
 use App\Models\Agency;
 use App\Models\Trip;
+use App\Services\TripService;
 
-class TripController extends Controller
+/**
+ * Contrôleur de gestion des trajets.
+ */
+class TripController extends AbstractController
 {
+    /**
+    * Affiche la liste des trajets.
+    */
     public function index(): void
     {
         $this->requireAdmin();
@@ -22,6 +29,9 @@ class TripController extends Controller
         ]);
     }
 
+    /**
+    * Affiche le formulaire de création d'un trajet.
+    */
     public function create(): void
     {
         $this->requireLogin();
@@ -35,38 +45,34 @@ class TripController extends Controller
         ]);
     }
 
+    /**
+    * Enregistre un nouveau trajet.
+    */
     public function store(): void
-    {
-        $this->requireLogin();
+{
+    $this->requireLogin();
 
-        if (
-            (int) $_POST['departure_agency_id'] === (int) $_POST['arrival_agency_id']
-        ) {
-            header('Location: ' . BASE_URL . 'trips/create');
-            exit;
-        }
+    $tripService = new TripService();
 
-        if ($_POST['arrival_datetime'] <= $_POST['departure_datetime']) {
-            header('Location: ' . BASE_URL . 'trips/create');
-            exit;
-        }
+    $result = $tripService->create(
+        $_POST,
+        $_SESSION['user']['id']
+    );
 
-        Trip::create([
-            'departure_agency_id' => (int) $_POST['departure_agency_id'],
-            'arrival_agency_id' => (int) $_POST['arrival_agency_id'],
-            'departure_datetime' => $_POST['departure_datetime'],
-            'arrival_datetime' => $_POST['arrival_datetime'],
-            'total_seats' => (int) $_POST['total_seats'],
-            'available_seats' => (int) $_POST['total_seats'],
-            'user_id' => $_SESSION['user']['id'],
-        ]);
+    $_SESSION['flash'] = $result['message'];
 
-        $_SESSION['flash'] = 'Trajet créé avec succès.';
-
-        header('Location: ' . BASE_URL);
+    if (!$result['success']) {
+        header('Location: ' . BASE_URL . 'trips/create');
         exit;
     }
 
+    header('Location: ' . BASE_URL);
+    exit;
+}
+
+    /**
+    * Affiche le formulaire de modification d'un trajet.
+    */    
     public function edit(): void
     {
         $this->requireLogin();
@@ -90,58 +96,47 @@ class TripController extends Controller
             'flash' => false,
         ]);
     }
-
+    
+    /**
+    * Met à jour un trajet.
+    */
     public function update(): void
-    {
-        $this->requireLogin();
+{
+    $this->requireLogin();
 
-        $trip = Trip::findById((int) $_POST['id']);
+    $tripService = new TripService();
 
-        if (
-            $_SESSION['user']['role'] !== 'admin'
-            && $trip['user_id'] !== $_SESSION['user']['id']
-        ) {
-            header('Location: ' . BASE_URL);
-            exit;
-        }
+    $result = $tripService->update(
+        (int) $_POST['id'],
+        $_POST,
+        $_SESSION['user']
+    );
 
-        Trip::update(
-            (int) $_POST['id'],
-            [
-                'departure_agency_id' => (int) $_POST['departure_agency_id'],
-                'arrival_agency_id' => (int) $_POST['arrival_agency_id'],
-                'departure_datetime' => $_POST['departure_datetime'],
-                'arrival_datetime' => $_POST['arrival_datetime'],
-                'total_seats' => (int) $_POST['total_seats'],
-                'available_seats' => (int) $_POST['available_seats'],
-            ]
-        );
+    $_SESSION['flash'] = $result['message'];
 
-        $_SESSION['flash'] = 'Trajet modifié avec succès.';
-
+    if (!$result['success']) {
         header('Location: ' . BASE_URL);
         exit;
     }
+
+    header('Location: ' . BASE_URL);
+    exit;
+}
 
     public function delete(): void
-    {
-        $this->requireLogin();
+{
+    $this->requireLogin();
 
-        $trip = Trip::findById((int) $_GET['id']);
+    $tripService = new TripService();
 
-        if (
-            $_SESSION['user']['role'] !== 'admin'
-            && $trip['user_id'] !== $_SESSION['user']['id']
-        ) {
-            header('Location: ' . BASE_URL);
-            exit;
-        }
+    $result = $tripService->delete(
+        (int) $_GET['id'],
+        $_SESSION['user']
+    );
 
-        Trip::delete((int) $_GET['id']);
+    $_SESSION['flash'] = $result['message'];
 
-        $_SESSION['flash'] = 'Trajet supprimé avec succès.';
-
-        header('Location: ' . BASE_URL);
-        exit;
-    }
+    header('Location: ' . BASE_URL);
+    exit;
+}
 }

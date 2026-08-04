@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Core\Database;
+
 use PDO;
 
-class User
+class User extends AbstractModel
 {
     public static function getAll(): array
     {
-        $pdo = Database::getInstance();
+        $pdo = self::db();
 
         $sql = "
             SELECT *
@@ -26,7 +26,7 @@ class User
 
     public static function findById(int $id): ?array
     {
-        $pdo = Database::getInstance();
+       $pdo = self::db();
 
         $sql = "
             SELECT *
@@ -47,7 +47,7 @@ class User
 
     public static function findByEmail(string $email): ?array
     {
-        $pdo = Database::getInstance();
+        $pdo = self::db();
 
         $sql = "
             SELECT *
@@ -68,7 +68,7 @@ class User
 
     public static function create(array $data): void
     {
-        $pdo = Database::getInstance();
+        $pdo = self::db();
 
         $sql = "
             INSERT INTO users (
@@ -96,7 +96,7 @@ class User
 
     public static function update(int $id, array $data): void
     {
-        $pdo = Database::getInstance();
+        $pdo = self::db();
 
         $sql = "
             UPDATE users
@@ -118,12 +118,12 @@ class User
     
     public static function delete(int $id): void
 {
-    $pdo = Database::getInstance();
+        $pdo = self::db();
 
-    $sql = "
-        DELETE FROM users
-        WHERE id = :id
-    ";
+        $sql = "
+            DELETE FROM users
+            WHERE id = :id
+        ";
 
     $statement = $pdo->prepare($sql);
 

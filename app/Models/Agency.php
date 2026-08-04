@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Core\Database;
 use PDO;
 
-class Agency
+class Agency extends AbstractModel
 {
     public static function getAll(): array
     {
-        $pdo = Database::getInstance();
+        $pdo = self::db();
 
         $sql = "
             SELECT *
@@ -26,7 +25,7 @@ class Agency
 
     public static function findById(int $id): ?array
     {
-        $pdo = Database::getInstance();
+        $pdo = self::db();
 
         $sql = "
             SELECT *
@@ -47,7 +46,7 @@ class Agency
 
     public static function create(array $data): void
     {
-        $pdo = Database::getInstance();
+        $pdo = self::db();
 
         $sql = "
             INSERT INTO agencies (
@@ -65,7 +64,7 @@ class Agency
 
     public static function update(int $id, array $data): void
     {
-        $pdo = Database::getInstance();
+        $pdo = self::db();
 
         $sql = "
             UPDATE agencies
@@ -83,7 +82,7 @@ class Agency
 
     public static function delete(int $id): void
     {
-        $pdo = Database::getInstance();
+        $pdo = self::db();
 
         $sql = "
             DELETE FROM agencies
